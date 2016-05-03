@@ -1,5 +1,10 @@
 # koa-mounting
 
+[![Build Status](https://travis-ci.org/vicanso/koa-mounting.svg?style=flat-square)](https://travis-ci.org/vicanso/koa-mounting)
+[![Coverage Status](https://img.shields.io/coveralls/vicanso/koa-mounting/master.svg?style=flat)](https://coveralls.io/r/vicanso/koa-mounting?branch=master)
+[![npm](http://img.shields.io/npm/v/koa-mounting.svg?style=flat-square)](https://www.npmjs.org/package/koa-mounting)
+[![Github Releases](https://img.shields.io/npm/dm/koa-mounting.svg?style=flat-square)](https://github.com/vicanso/koa-mounting)
+
   Mount other Koa applications as middleware. The `path` passed to `mount()` is stripped
   from the URL temporarily until the stack unwinds. This is useful for creating entire 
   apps or middleware that will function correctly regardless of which path segment(s)
