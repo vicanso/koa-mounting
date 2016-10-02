@@ -1,4 +1,5 @@
 'use strict';
+
 const util = require('util');
 const assert = require('assert');
 const compose = require('koa-compose');
@@ -51,7 +52,6 @@ function mount(_prefix, _app) {
   }
 
   return (ctx, next) => {
-    const cloneCtx = ctx;
     const prev = ctx.path;
     const newPath = match(prev);
     debug('mount %s %s -> %s', prefix, name, newPath);
@@ -59,19 +59,19 @@ function mount(_prefix, _app) {
     if (!newPath) {
       return next();
     }
-
-    cloneCtx.mountPath = prefix;
-    cloneCtx.path = newPath;
-    debug('enter %s -> %s', prev, cloneCtx.path);
+    /* eslint no-param-reassign:0 */
+    ctx.mountPath = prefix;
+    ctx.path = newPath;
+    debug('enter %s -> %s', prev, ctx.path);
     const goNext = () => {
-      debug('leave %s -> %s', cloneCtx.path, prev);
-      cloneCtx.path = prev;
+      debug('leave %s -> %s', ctx.path, prev);
+      ctx.path = prev;
       return next();
     };
     if (app.middleware) {
-      return downstream(cloneCtx).then(goNext);
+      return downstream(ctx).then(goNext);
     }
-    return downstream(cloneCtx, goNext);
+    return downstream(ctx, goNext);
   };
 }
 
